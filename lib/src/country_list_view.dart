@@ -13,6 +13,8 @@ class CountryListView extends StatefulWidget {
   /// The country picker passes the new value to the callback.
   final ValueChanged<Country> onSelect;
 
+  final VoidCallback onNotAvailableSelect;
+
   /// An optional [showPhoneCode] argument can be used to show phone code.
   final bool showPhoneCode;
 
@@ -54,6 +56,7 @@ class CountryListView extends StatefulWidget {
     this.searchAutofocus = false,
     this.showWorldWide = false,
     this.showSearch = true,
+    required this.onNotAvailableSelect,
   })  : assert(
           exclude == null || countryFilter == null,
           'Cannot provide both exclude and countryFilter',
@@ -167,7 +170,7 @@ class _CountryListViewState extends State<CountryListView> {
     );
   }
 
-  Widget _listRow(Country country) {
+  Widget _listRow(Country country, {bool isAvailable = true}) {
     final TextStyle _textStyle =
         widget.countryListTheme?.textStyle ?? _defaultTextStyle;
 
@@ -179,11 +182,15 @@ class _CountryListViewState extends State<CountryListView> {
       color: Colors.transparent,
       child: InkWell(
         onTap: () {
-          country.nameLocalized = CountryLocalizations.of(context)
-              ?.countryName(countryCode: country.countryCode)
-              ?.replaceAll(RegExp(r"\s+"), " ");
-          widget.onSelect(country);
-          Navigator.pop(context);
+          if (isAvailable) {
+            country.nameLocalized = CountryLocalizations.of(context)
+                ?.countryName(countryCode: country.countryCode)
+                ?.replaceAll(RegExp(r"\s+"), " ");
+            widget.onSelect(country);
+            Navigator.pop(context);
+          } else {
+            widget.onNotAvailableSelect();
+          }
         },
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 5.0),
@@ -208,12 +215,20 @@ class _CountryListViewState extends State<CountryListView> {
                 ],
               ),
               Expanded(
-                child: Text(
-                  CountryLocalizations.of(context)
-                          ?.countryName(countryCode: country.countryCode)
-                          ?.replaceAll(RegExp(r"\s+"), " ") ??
-                      country.name,
-                  style: _textStyle,
+                child: RichText(
+                  text: TextSpan(
+                    children: [
+                      TextSpan(
+                          text: "(Coming Soon)",
+                          style: _textStyle?.copyWith(
+                            color: const Color(0xffFF785A),
+                            fontWeight: FontWeight.w400,
+                          ))
+                    ],
+                    text:
+                        "${CountryLocalizations.of(context)?.countryName(countryCode: country.countryCode)?.replaceAll(RegExp(r"\s+"), " ") ?? country.name} (Coming Soon)",
+                    style: _textStyle,
+                  ),
                 ),
               )
             ],

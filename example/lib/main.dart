@@ -65,6 +65,7 @@ class HomePage extends StatelessWidget {
         child: ElevatedButton(
           onPressed: () {
             showCountryPicker(
+              onNotAvailableSelect: () {},
               context: context,
               //Optional.  Can be used to exclude(remove) one ore more country from the countries list (optional).
               exclude: <String>['KN', 'MF'],
