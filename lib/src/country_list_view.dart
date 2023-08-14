@@ -219,11 +219,12 @@ class _CountryListViewState extends State<CountryListView> {
                   text: TextSpan(
                     children: [
                       TextSpan(
-                          text: "(Coming Soon)",
-                          style: _textStyle?.copyWith(
-                            color: const Color(0xffFF785A),
-                            fontWeight: FontWeight.w400,
-                          ))
+                        text: "(Coming Soon)",
+                        style: _textStyle.copyWith(
+                          color: const Color(0xffFF785A),
+                          fontWeight: FontWeight.w400,
+                        ),
+                      )
                     ],
                     text:
                         "${CountryLocalizations.of(context)?.countryName(countryCode: country.countryCode)?.replaceAll(RegExp(r"\s+"), " ") ?? country.name} (Coming Soon)",

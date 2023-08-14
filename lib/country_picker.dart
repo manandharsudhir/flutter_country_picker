@@ -8,10 +8,10 @@ import 'src/country_list_theme_data.dart';
 
 export 'src/country.dart';
 export 'src/country_list_theme_data.dart';
+export 'src/country_list_view.dart';
 export 'src/country_localizations.dart';
 export 'src/country_parser.dart';
 export 'src/country_service.dart';
-export 'src/country_list_view.dart';
 
 /// Shows a bottom sheet containing a list of countries to select one.
 ///
@@ -47,6 +47,7 @@ void showCountryPicker({
   required BuildContext context,
   required ValueChanged<Country> onSelect,
   VoidCallback? onClosed,
+  required VoidCallback onNotAvailableSelect,
   List<String>? favorite,
   List<String>? exclude,
   List<String>? countryFilter,
@@ -65,6 +66,7 @@ void showCountryPicker({
     context: context,
     onSelect: onSelect,
     onClosed: onClosed,
+    onNotAvailableSelect: onNotAvailableSelect,
     exclude: exclude,
     favorite: favorite,
     countryFilter: countryFilter,

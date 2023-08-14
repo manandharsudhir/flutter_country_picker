@@ -13,6 +13,7 @@ void showCountryListBottomSheet({
   List<String>? countryFilter,
   bool showPhoneCode = false,
   CountryListThemeData? countryListTheme,
+  required VoidCallback onNotAvailableSelect,
   bool searchAutofocus = false,
   bool showWorldWide = false,
   bool showSearch = true,
@@ -26,6 +27,7 @@ void showCountryListBottomSheet({
     builder: (context) => _builder(
       context,
       onSelect,
+      onNotAvailableSelect,
       favorite,
       exclude,
       countryFilter,
@@ -43,6 +45,7 @@ void showCountryListBottomSheet({
 Widget _builder(
   BuildContext context,
   ValueChanged<Country> onSelect,
+  VoidCallback onNotAvailableSelect,
   List<String>? favorite,
   List<String>? exclude,
   List<String>? countryFilter,
@@ -82,6 +85,7 @@ Widget _builder(
       borderRadius: _borderRadius,
     ),
     child: CountryListView(
+      onNotAvailableSelect: onNotAvailableSelect,
       onSelect: onSelect,
       exclude: exclude,
       favorite: favorite,
