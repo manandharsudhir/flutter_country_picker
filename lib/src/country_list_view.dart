@@ -161,7 +161,8 @@ class _CountryListViewState extends State<CountryListView> {
                 ),
               ],
               ..._filteredList
-                  .map<Widget>((country) => _listRow(country))
+                  .map<Widget>(
+                      (country) => _listRow(country, isAvailable: false))
                   .toList(),
             ],
           ),
@@ -215,22 +216,29 @@ class _CountryListViewState extends State<CountryListView> {
                 ],
               ),
               Expanded(
-                child: RichText(
-                  text: TextSpan(
-                    children: [
-                      TextSpan(
-                        text: "(Coming Soon)",
-                        style: _textStyle.copyWith(
-                          color: const Color(0xffFF785A),
-                          fontWeight: FontWeight.w400,
-                        ),
+                child: isAvailable
+                    ? Text(
+                        "${CountryLocalizations.of(context)?.countryName(countryCode: country.countryCode)?.replaceAll(RegExp(r"\s+"), " ") ?? country.name}",
+                        style: _textStyle,
                       )
-                    ],
-                    text:
-                        "${CountryLocalizations.of(context)?.countryName(countryCode: country.countryCode)?.replaceAll(RegExp(r"\s+"), " ") ?? country.name} (Coming Soon)",
-                    style: _textStyle,
-                  ),
-                ),
+                    : RichText(
+                        text: TextSpan(
+                          children: [
+                            TextSpan(
+                              text: "(Coming Soon)",
+                              style: _textStyle.copyWith(
+                                color: const Color(0xffFF785A),
+                                fontWeight: FontWeight.w400,
+                              ),
+                            )
+                          ],
+                          text:
+                              "${CountryLocalizations.of(context)?.countryName(countryCode: country.countryCode)?.replaceAll(RegExp(r"\s+"), " ") ?? country.name}",
+                          style: _textStyle.copyWith(
+                            color: Colors.black,
+                          ),
+                        ),
+                      ),
               )
             ],
           ),
