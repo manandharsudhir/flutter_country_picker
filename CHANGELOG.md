@@ -1,222 +1,267 @@
-## 3.0.0 - March 10 2023
+## 2.0.24
+  * Add option for bottom sheet Width.
+    ```Dart
+    showCountryPicker(
+      context: context,
+      countryListTheme: CountryListThemeData(
+       bottomSheetWidth: 500, // Optional. Country list modal Width
+      ),
+      onSelect: (Country country) => print('Select country: ${country.displayName}'),
+    );
+    ```
+  * Add `emojiFontFamilyFallback`
+    
+## 2.0.23
+  * Export `CustomFlagBuilder`
+  * Add parameter `useRootNavigator`
 
-- Support Flutter 3.7.0
-- Restructured package follow linter
+## 2.0.22
+  * Add support for Czech localization
+  * Fix typos Korean
+
+## 2.0.21
+  * Add support for Korean localization
+  * Add support for Japanese localization
+  * Add support for Indonesian localization
+  * Fix Windows and web flag
+
+## 2.0.20
+  * Add support for Italian localization
+  * Fix French Translations
+  * UI filling fix
+
+## 2.0.19
+  * Add support for Dutch localization
+  * Add `parsePhoneCode` and `tryParsePhoneCode`
+
+## 2.0.18
+  * Fix Hindi Translations
+  * Removed old country codes for Kosovo (+381 & +386)
+
+## 2.0.17
+  * Add option to hide search bar
+    ```Dart
+      showCountryPicker(
+        context: context,
+        showSearch: false,
+        onSelect: (Country country) => print('Select country: ${country.displayName}'),
+      );
+    ```
+  * Add `searchTextStyle`
+    ```Dart
+      showCountryPicker(
+        context: context,
+        countryListTheme: CountryListThemeData(
+          searchTextStyle: TextStyle( // Optional. Styles the text in the search field
+            color: Colors.blue,
+            fontSize: 18,
+          ),
+        ),
+        onSelect: (Country country) => print('Select country: ${country.displayName}'),
+      );
+    ```
+  * Removed the need of `worldwide.png` and changed to '🌍' emoji 
+
+## 2.0.16
+  * Add support for Latvian localization
+  * Add support for Lithuanian localization
+
+## 2.0.15
+  * Add support for German localization
+  * Add `favorite` option.
+    - Can be used to to show the favorite countries at the top of the list.
+    - It takes a list of country code(iso2).
+      ```Dart
+      showCountryPicker(
+        context: context,
+        favorite: <String>['SE', 'MC'],
+        onSelect: (Country country) {
+          print('Select country: ${country.displayName}');
+        },
+      );
+      ```
+  * Implemented Country Service
+  * Fix package assets
+
+## 2.0.14
+  * Add support for country search by phone code
+    
+## 2.0.13
+  * Add getter for flag emoji in `Country` model
+  * Add option for bottom sheet height.
+    ```Dart
+    showCountryPicker(
+      context: context,
+      countryListTheme: CountryListThemeData(
+       bottomSheetHeight: 500, // Optional. Country list modal height
+      ),
+      onSelect: (Country country) => print('Select country: ${country.displayName}'),
+    );
+    ```
+## 2.0.12
+  * Update example android gradle
+  * Fix Kurdish translation for Curaçao name
+## 2.0.11
+  * Fix Eswatini name
+  * Fix Italy code at Turkish localization
+  * Add optional argument for showing "World Wide" option at the beginning of the list
+    ```Dart
+    showCountryPicker(
+      context: context,
+      showWorldWide: true,
+      onSelect: (Country country) => print('Select country: ${country.displayName}'),
+    );
+    ```
+
+## 2.0.10
+  * Add support for French localization
+  * Add support for Kurdish localization
+
+## 2.0.9
+  * Add support for Estonian localization 
+    
+## 2.0.8
+  * Add support for Arabic localization 
+  * Add support for Croatian localization
+  * Add options to autofocus at search TextField.
+    ```Dart
+    showCountryPicker(
+      context: context,
+      searchAutofocus: true,
+      onSelect: (Country country) => print('Select country: ${country.displayName}'),
+    );
+    ```
+
+## 2.0.7
+  * Add support for Turkish localization 
+
+## 2.0.6
+  * Add support for Nepali and Hindi localization 
+
+## 2.0.5
+  * Add styling options for the border-radius and the search field.
+    ```Dart
+    showCountryPicker(
+      context: context,
+      countryListTheme: CountryListThemeData(
+        // Optional. Sets the border radius for the bottomsheet.
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(40.0),
+          topRight: Radius.circular(40.0),
+        ),
+        // Optional. Styles the search field.
+        inputDecoration: InputDecoration(
+          labelText: 'Search',
+          hintText: 'Start typing to search',
+          prefixIcon: const Icon(Icons.search),
+          border: OutlineInputBorder(
+            borderSide: BorderSide(
+              color: const Color(0xFF8C98A8).withOpacity(0.2),
+            ),
+          ),
+        ),
+      ),
+      onSelect: (Country country) => print('Select country: ${country.displayName}'),
+    );
+    ```
+
+## 2.0.4
+  * Add `CountryParser`
+
+## 2.0.3
+  * Add Ukrainian, Russian, and Polish translations
+  * Add `onClosed` callback
 
 ## 2.0.2
-
-- added localization for no_country text in italian and english (please open a pr with other languages if you know them 🙏)
-- added possibility to inject a custom list of countries using `CountryCodePicker.countryList`
-- minor fixes
+  * Add support for Norwegian localization 
 
 ## 2.0.1
-
-- Use `universal_platform` package
-
+  * Implemented country list theme
+    ```Dart
+    showCountryPicker(
+      context: context,
+      countryListTheme: CountryListThemeData(
+        flagSize: 25,
+        backgroundColor: Colors.white,
+        textStyle: TextStyle(fontSize: 16, color: Colors.blueGrey),
+      ),
+      onSelect: (Country country) => print('Select country: ${country.displayName}'),
+    );
+    ```
 ## 2.0.0
-
-- support 70 languages
-- use modal_bottom_sheet 2.0.0
-- nullable integration
-- switch to dialog on desktop app support
-- added flagDecoration
-
-## 1.7.0
-
-- Update modal_bottom_sheet to 1.0.0+1
-- Update zh.json
-- Add background color to selection dialog
-- Add option to show dropdown button for ease of selection for user
-
-## 1.6.2
-
-- Fix breaking change with modal_bottom_sheet: 1.0.0-dev
-- Fix Myanmar name
-- Center selection dialog to let user size it in Flutter web
-- Add ZH localization support
-- Optimize all flag images
-
-## 1.6.1
-
-- Update to modal_bottom_sheet: ^1.0.1-dev
-
-## 1.6.0
-
-- Added option to change close icon and search icon
-- Fix bottom sheet overflow
-- Make modal_bottom_sheet use dynamic versioning
-- Add `barrierColor`, `backgroundColor` and `boxDecoration` properties
-
-## 1.5.0
-
-- Add ko.json translations
-- Remove key in SimpleDialogOption
-- Use bottom sheet dialog rather than SimpleDialog
-
-## 1.4.0
-
-- Move onInit to didUpdateWidget in order to have localized countries
-
-## 1.3.15
-
-- Add portugal and german translations
-
-## 1.3.14
-
-- Add `hideMainText` property
-
-## 1.3.12+1
-
-- Fix Cayman Islands code
-
-## 1.3.12
-
-- Allow to edit dialog textStyle 
-
-## 1.3.11
-
-- Fix initialization
-
-## 1.3.9
-
-- Add hideSearch property
-
-- Add spanish support
-
-## 1.3.8
-
-- Expose state to let use a key to open the dialog
-
-- Add dialog size config
-
-- Remove customList and fix countryFilter
-
-- Fix filtering with localization
-
-## 1.3.7
-
-- Add `customList` property
-
-- Add exit button in dialog
-
-## 1.3.6
-
-- Add `comparator` property
-
-## 1.3.4
-
-- Add `showFlagDialog` and  `showFlagMain`
-
-## 1.3.3
-
-- Fix a bug in localization
-
-## 1.3.2
-
-- Add `enable` property in order to use the disable the button
-
-- Add `textOverflow` property
-
-## 1.3.1
-
-- Add `flagWidth` property
-
-## 1.3.0
-
-- Fixed selection dialog length
-
-- Added i18n with `CountryLocalizations`
-
-## 1.2.4
-
-Fixed a bug that was making impossible to update initial selection
-
-## 1.2.3
-
-Update country code of Republica Dominicana.
-
-## 1.2.2
-
-Fix code list.
-
-## 1.2.0
-
-Added Ability to render custom Widget instead of package one's.
-
-Bug fix.
-
-## 1.1.7
-
-Flag is now optional. Fix bug on initState.
-
-## 1.1.5
-
-OnlyCountrymode now also displays only the country on Textwidget when closed.
+  * Migrated to null safety
 
 ## 1.1.4
+  * Add support for Spanish and Portuguese localization.
+  * If `showPhoneCode` is false remove duplicates country 
 
-Add possibility to show only country name
+## 1.1.3
+  * Localize label and hint of search text field
+
+## 1.1.2
+  * Add support for Greek localization.
+  * At search change contains to startsWith.
+  * Add country filter option.
+    - Can be used to uses filter the countries list (optional).
+    - It takes a list of country code(iso2).
+    - Can't provide both exclude and countryFilter
+    ```Dart
+     showCountryPicker(
+       context: context,
+       countryFilter: <String>['AT', 'GB', 'DK', 'DE', 'FR', 'GR'], //It takes a list of country code(iso2).
+       onSelect: (Country country) => print('Select country: ${country.displayName}'),
+     );
+    ```
 
 ## 1.1.1
-
-Update allowed dart version and modify description
+  * Search on localizations.
 
 ## 1.1.0
 
-Changed CElement with CountryCode and fix error on favorite null
+### Implement localization. 
+Add the `CountryLocalizations.delegate` in the list of your app delegates.
+```Dart
+MaterialApp(
+      supportedLocales: [
+        const Locale('en'),
+        const Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hans'), // Generic Simplified Chinese 'zh_Hans'
+        const Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hant'), // Generic traditional Chinese 'zh_Hant'
+      ],
+      localizationsDelegates: [
+        CountryLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ],
+      home: HomePage(),
+ );
+```
+### Supported languages:
+* English
+* Simplified Chinese
+* Traditional Chinese
+
+## 1.0.5
+  * Update documentation.
 
 ## 1.0.4
-
-Update country name with translated version
+  * Implement search.
 
 ## 1.0.3
-
-Update flags dimension to reduce application size
+  * Add show phone code option.
 
 ## 1.0.2
-
-Update framework compatiblity
+  * Add exclude countries option.  
+    Can be used to exclude(remove) one ore more country from the countries list
+    ```Dart
+    showCountryPicker(
+       context: context,
+       exclude: <String>['KN', 'MF'], //It takes a list of country code(iso2).
+       onSelect: (Country country) => print('Select country: ${country.displayName}'),
+    );
+    ```
 
 ## 1.0.1
-
-Correct README and update screenshots
+  * Add documentation.
 
 ## 1.0.0
-
-Use png flags instead of a font
-
-## 0.2.2
-
-Added textStyle and padding as widget parameters
-
-## 0.2.1
-
-Added some documentation
-
-## 0.2.0
-
-Now onChanged has a full CElement as argument and not only a string. (issue #4)
-
-## 0.1.3
-
-Favorite and initial selection can be one of code or dial code
-
-## 0.1.2
-
-Favorite and initial selection can be one of code or dial code
-
-## 0.1.1
-
-Tested with dart 2
-
-## 0.1.0
-
-Removed flags in iOS because they show up weirdly.
-
-## 0.0.2
-
-Add favorite countries option.
-
-## 0.0.1
-
-Initial release
+  * Initial developers preview release.

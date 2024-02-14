@@ -1,185 +1,104 @@
-![GitHub code size](https://img.shields.io/github/languages/code-size/chandrabezzo/CountryCodePicker)
-![GitHub contributors](https://img.shields.io/github/contributors/chandrabezzo/CountryCodePicker)
-[![Pub](https://img.shields.io/pub/v/country_code_picker.svg)](https://pub.dartlang.org/packages/country_code_picker)
-[![Linkedin](https://i.stack.imgur.com/gVE0j.png) LinkedIn](https://www.linkedin.com/in/salvatore-giordano/)
-[![Linkedin](https://i.stack.imgur.com/gVE0j.png) LinkedIn](https://www.linkedin.com/in/chandra-abdul-fattah/)
+# Country picker
 
-# country_code_picker
+[![pub package](https://img.shields.io/pub/v/country_picker.svg)](https://pub.dev/packages/country_picker)
 
-A flutter package for showing a country code selector.
+A flutter package to select a country from a list of countries. 
 
-It supports i18n for 70 languages.
+<img height="600" alt="n1" src="https://raw.githubusercontent.com/Daniel-Ioannou/flutter_country_picker/master/assets/ReadMe%20Screenshot.png">
 
-Check the example on web! https://imtoori.dev/CountryCodePicker/#/
+## Getting Started
 
-<img src="https://raw.githubusercontent.com/Salvatore-Giordano/CountryCodePicker/master/screenshots/screen1.png" width="240"/>
-<img src="https://raw.githubusercontent.com/Salvatore-Giordano/CountryCodePicker/master/screenshots/screen2.png" width="240"/>
+ Add the package to your pubspec.yaml:
 
-## Usage
+ ```yaml
+ country_picker: ^2.0.24
+ ```
+ 
+ In your dart file, import the library:
 
-Just put the component in your application setting the onChanged callback.
-
-```dart
-
-@override
- Widget build(BuildContext context) => new Scaffold(
-     body: Center(
-       child: CountryCodePicker(
-         onChanged: print,
-         // Initial selection and favorite can be one of code ('IT') OR dial_code('+39')
-         initialSelection: 'IT',
-         favorite: ['+39','FR'],
-         // optional. Shows only country name and flag
-         showCountryOnly: false,
-         // optional. Shows only country name and flag when popup is closed.
-         showOnlyCountryWhenClosed: false,
-         // optional. aligns the flag and the Text left
-         alignLeft: false,
-       ),
-     ),
- );
-
+ ```Dart
+ import 'package:country_picker/country_picker.dart';
+ ``` 
+  Show country picker using `showCountryPicker`:
+```Dart
+showCountryPicker(
+  context: context,
+  showPhoneCode: true, // optional. Shows phone code before the country name.
+  onSelect: (Country country) {
+    print('Select country: ${country.displayName}');
+  },
+);
 ```
 
-Example:
-
-```dart
-
-void _onCountryChange(CountryCode countryCode) {
-    //TODO : manipulate the selected country code here
-    print("New Country selected: " + countryCode.toString());
-  }
-
-```
-
-### i18n
-
-Just add the `CountryLocalizations.delegate` in the list of your app delegates
-
-```dart
- return new MaterialApp(
+### For localization: 
+Add the `CountryLocalizations.delegate` in the list of your app delegates.
+```Dart
+MaterialApp(
       supportedLocales: [
-         Locale("af"),
-        Locale("am"),
-        Locale("ar"),
-        Locale("az"),
-        Locale("be"),
-        Locale("bg"),
-        Locale("bn"),
-        Locale("bs"),
-        Locale("ca"),
-        Locale("cs"),
-        Locale("da"),
-        Locale("de"),
-        Locale("el"),
-        Locale("en"),
-        Locale("es"),
-        Locale("et"),
-        Locale("fa"),
-        Locale("fi"),
-        Locale("fr"),
-        Locale("gl"),
-        Locale("ha"),
-        Locale("he"),
-        Locale("hi"),
-        Locale("hr"),
-        Locale("hu"),
-        Locale("hy"),
-        Locale("id"),
-        Locale("is"),
-        Locale("it"),
-        Locale("ja"),
-        Locale("ka"),
-        Locale("kk"),
-        Locale("km"),
-        Locale("ko"),
-        Locale("ku"),
-        Locale("ky"),
-        Locale("lt"),
-        Locale("lv"),
-        Locale("mk"),
-        Locale("ml"),
-        Locale("mn"),
-        Locale("ms"),
-        Locale("nb"),
-        Locale("nl"),
-        Locale("nn"),
-        Locale("no"),
-        Locale("pl"),
-        Locale("ps"),
-        Locale("pt"),
-        Locale("ro"),
-        Locale("ru"),
-        Locale("sd"),
-        Locale("sk"),
-        Locale("sl"),
-        Locale("so"),
-        Locale("sq"),
-        Locale("sr"),
-        Locale("sv"),
-        Locale("ta"),
-        Locale("tg"),
-        Locale("th"),
-        Locale("tk"),
-        Locale("tr"),
-        Locale("tt"),
-        Locale("uk"),
-        Locale("ug"),
-        Locale("ur"),
-        Locale("uz"),
-        Locale("vi"),
-        Locale("zh")
+        const Locale('en'),
+        const Locale('el'),
+        const Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hans'), // Generic Simplified Chinese 'zh_Hans'
+        const Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hant'), // Generic traditional Chinese 'zh_Hant'
       ],
       localizationsDelegates: [
         CountryLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
       ],
+      home: HomePage(),
+ );
 ```
 
-## Customization
+### Parameters:
+* `onSelect`: Called when a country is selected. The country picker passes the new value to the callback (required)
+* `onClosed`: Called when CountryPicker is dismissed, whether a country is selected or not (optional).
+* `showPhoneCode`: Can be used to show phone code before the country name.
+* `searchAutofocus` Can be used to initially expand virtual keyboard
+* `showSearch` Can be used to show/hide the search bar.
+* `showWorldWide` An optional argument for showing "World Wide" option at the beginning of the list
+* `favorite` Can be used to show the favorite countries at the top of the list (optional).
+* `countryListTheme`: Can be used to customize the country list's bottom sheet and widgets that lie within it. (optional). 
+  ```Dart
+  showCountryPicker(
+    context: context,
+    countryListTheme: CountryListThemeData(
+      flagSize: 25,
+      backgroundColor: Colors.white,
+      textStyle: TextStyle(fontSize: 16, color: Colors.blueGrey),
+      bottomSheetHeight: 500, // Optional. Country list modal height
+      //Optional. Sets the border radius for the bottomsheet.
+        borderRadius: BorderRadius.only(
+        topLeft: Radius.circular(20.0),
+        topRight: Radius.circular(20.0),
+      ),
+      //Optional. Styles the search field.
+      inputDecoration: InputDecoration(
+        labelText: 'Search',
+        hintText: 'Start typing to search',
+        prefixIcon: const Icon(Icons.search),
+        border: OutlineInputBorder(
+          borderSide: BorderSide(
+            color: const Color(0xFF8C98A8).withOpacity(0.2),
+          ),
+        ),
+      ),
+    ),
+    onSelect: (Country country) => print('Select country: ${country.displayName}'),
+  );
+  ```
+* `exclude`: Can be used to exclude(remove) one or more country from the countries list (optional). 
+  ```Dart
+  showCountryPicker(
+    context: context,
+    exclude: <String>['KN', 'MF'], //It takes a list of country code(iso2).
+    onSelect: (Country country) => print('Select country: ${country.displayName}'),
+  );
+  ```
+* `countryFilter`: Can be used to filter the countries list (optional). 
+  - It takes a list of country code(iso2). 
+  - Can't provide both exclude and countryFilter
 
-Here is a list of properties available to customize your widget:
-
-| Name | Type | Description |
-|-----|-----|------|
-|onChanged| ValueChanged<CountryCode> | callback invoked when the selection changes |
-|onInit| ValueChanged<CountryCode> | callback invoked during initialization of the widget |
-|initialSelection| String | used to set the initial selected value |
-|favorite| List<String> | used to populate the favorite country list |
-|textStyle| TextStyle | TextStyle applied to the widget button |
-|padding| EdgeInsetsGeometry | the padding applied to the button |
-|showCountryOnly| bool | true if you want to see only the countries in the selection dialog |
-|searchDecoration| InputDecoration | decoration applied to the TextField search widget |
-|searchStyle| TextStyle | style applied to the TextField search widget text |
-|emptySearchBuilder| WidgetBuilder | use this to customize the widget used when the search returns 0 elements |
-|builder| Function(CountryCode) | use this to build a custom widget instead of the default FlatButton |
-|enabled| bool | set to false to disable the widget |
-|textOverflow| TextOverflow | the button text overflow behaviour |
-|dialogSize| Size | the size of the selection dialog |
-|countryFilter| List<String> | uses a list of strings to filter a sublist of countries |
-|showOnlyCountryWhenClosed| bool | if true it'll show only the country |
-|alignLeft| bool | aligns the flag and the Text to the left |
-|showFlag| bool | shows the flag everywhere |
-|showFlagMain| bool | shows the flag only when closed |
-|showFlagDialog| bool | shows the flag only in dialog |
-|flagWidth| double | the width of the flags |
-|flagDecoration| Decoration | used for styling the flags |
-|comparator| Comparator<CountryCode> | use this to sort the countries in the selection dialog |
-|hideSearch| bool | if true the search feature will be disabled |
 
 ## Contributions
-
 Contributions of any kind are more than welcome! Feel free to fork and improve country_code_picker in any way you want, make a pull request, or open an issue.
-
-
-## Getting involved
-First of all, thank you for even considering to get involved. You are a real super :star:  and we :heart:  you!
-
-### Reporting bugs and issues
-Use the configured [Github issue report template](https://github.com/imtoori/CountryCodePicker/issues/new?assignees=&labels=&template=bug_report.md&title=) when reporting an issue. Make sure to state your observations and expectations
-as objectively and informative as possible so that we can understand your need and be able to troubleshoot.
-
-### Discussions and ideas
-We're happy to discuss and talk about ideas, post your
-question to [StackOverflow](https://stackoverflow.com/search?q=country+code+picker).
